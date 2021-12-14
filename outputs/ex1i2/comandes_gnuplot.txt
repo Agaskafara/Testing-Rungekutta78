@@ -1,0 +1,14 @@
+# comandes per fer el retrat de fase amb gnuplot
+# a partir del fitxer de sortida 'orbites_pendol.txt' 
+
+set ticslevel 0.1
+set ytics 1
+set xlabel 'r' ; set ylabel 'v'
+set xrange [-10:10]
+set yrange [-3.5:3.5]
+plot './orbites_output/orbites.txt' u 2:3 w l
+set output './retrats_de_fase/pendol.eps'
+set term post eps color solid
+replot
+set term x11
+set output

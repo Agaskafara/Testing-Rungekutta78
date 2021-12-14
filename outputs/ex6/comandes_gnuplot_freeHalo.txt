@@ -1,0 +1,6 @@
+set term x11 size 700,700
+set view equal xyz
+set ticslevel 0.1
+unset key
+splot './orbites_output/points.txt' u 1:2:3 w p, \
+      './orbites_output/orbites.txt' u 2:3:4 w l
