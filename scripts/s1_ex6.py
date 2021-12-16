@@ -2,7 +2,6 @@ import argparse
 import os
 from functools import partial
 import numpy as np
-import matplotlib.pyplot as plt
 from utils.functs import rtbp_funct
 from utils.rk78 import rk78
 

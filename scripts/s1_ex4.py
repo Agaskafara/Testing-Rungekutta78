@@ -1,6 +1,6 @@
 import argparse
 import numpy as np
-from utils.functs import ex4_functA, ex4_functB
+from utils.functs import s1_ex4_functA, s1_ex4_functB
 from utils.rk78 import rk78
 
 def args():
@@ -30,7 +30,7 @@ def main(args):
 
     # Predict A
     outputA = numeric_algorithm.flux(t_pred["A"], t0["A"], init_pos["A"],
-                                     h, h_min, h_max, tol, max_steps, ex4_functA)
+                                     h, h_min, h_max, tol, max_steps, s1_ex4_functA)
 
     # Show prediction and check if tol is satisfied
     print(outputA)
@@ -41,7 +41,7 @@ def main(args):
 
     # Predict B
     outputB = numeric_algorithm.flux(t_pred["B"], t0["B"], init_pos["B"],
-                                    h, h_min, h_max, tol, max_steps, ex4_functB)
+                                    h, h_min, h_max, tol, max_steps, s1_ex4_functB)
 
     # Show prediction and check if tol is satisfied
     print(outputB)
