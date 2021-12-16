@@ -2,7 +2,7 @@
 
 L'objectiu d'aquest exercici i apartat és solucionar una EDO i alhora, calcular les equacions variacionals del flux.
 
-Els codis associats són "scripts/s2\_ex1.py" i "scripts/utils/include_diffs.py".
+Els programes associats són "scripts/s2\_ex1.py" i "scripts/utils/include_diffs.py".
 
 Desglosem l'exercici en dues tàsques:
 
