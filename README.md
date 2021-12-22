@@ -14,4 +14,4 @@ Per altra banda, en la carpeta "outputs" hi ha continguts els fitxers referents 
 ## Requeriments:
 
 
-Per informació específica dels programes, en "outputs/ex{}", hi ha fitxers README.md amb breus explicacions .
+Per informació específica dels programes, en "outputs/ex{}", hi ha fitxers `README.md` amb breus explicacions .
