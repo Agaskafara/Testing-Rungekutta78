@@ -1,0 +1,70 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Section 2",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/s2_ex1.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Halo classic",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/s1_ex6.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--halos_input",
+                "${workspaceFolder}/outputs/section1/ex6/condicions_inicials/halos.inp",
+                "--output_folder",
+                "${workspaceFolder}/outputs/section1/ex6/orbites_output",
+            ]
+        },
+        {
+            "name": "Halo testing",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/s1_halos_testing.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--output_folder",
+                "${workspaceFolder}/outputs/section1/ex6/orbites_output",
+            ]
+        },
+        {
+            "name": "Lorentz flux",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/s1_ex5.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--output_folder",
+                "${workspaceFolder}/outputs/section1/ex5/orbites_output",
+            ]
+        },
+        {
+            "name": "Compute fluxs",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/s1_ex4.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "rf pendol",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/s1_ex1i2.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--init_conditions",
+                "${workspaceFolder}/outputs/section1/ex1i2/condicions_inicials/condicions_basiques.txt",
+                "--output_folder",
+                "${workspaceFolder}/outputs/section1/ex1i2/orbites_output"
+            ]
+        }
+    ]
+}
