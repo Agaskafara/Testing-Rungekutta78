@@ -27,7 +27,6 @@ def main(args):
     # ----------------------------------------
     # Time predictions -----------------------
     t_pred = 0.5
-    num_evals = 1
     # ----------------------------------------
     # Parameters -----------------------------
     alpha = 0.5
@@ -45,17 +44,28 @@ def main(args):
     # Predict delta
     delta = 0.00001
     delta_x0 = np.array([delta, 0])
-    phi_delta_x = numeric_algorithm.flux(t_pred, t0, init_pos[:2] + delta_x0,
+    phi_pdelta_x = numeric_algorithm.flux(t_pred, t0, init_pos[:2] + delta_x0,
                                          h, h_min, h_max, tol, max_steps,
                                          partial(s2_funct, alpha_=alpha))['pos']
     delta_y0 = np.array([0, delta])
-    phi_delta_y = numeric_algorithm.flux(t_pred, t0, init_pos[:2] + delta_y0,
+    phi_pdelta_y = numeric_algorithm.flux(t_pred, t0, init_pos[:2] + delta_y0,
                                          h, h_min, h_max, tol, max_steps,
                                          partial(s2_funct, alpha_=alpha))['pos']
+    
+    # Predict -delta
+    delta = -0.00001
+    delta_x0 = np.array([delta, 0])
+    phi_mdelta_x = numeric_algorithm.flux(t_pred, t0, init_pos[:2] + delta_x0,
+                                         h, h_min, h_max, tol, max_steps,
+                                         partial(s2_funct, alpha_=alpha))['pos']
+    delta_y0 = np.array([0, delta])
+    phi_mdelta_y = numeric_algorithm.flux(t_pred, t0, init_pos[:2] + delta_y0,
+                                         h, h_min, h_max, tol, max_steps,
+                                         partial(s2_funct, alpha_=alpha))['pos']
+
     # Build D_xPhi(t=0.5)
-    phi = output['pos'][:2]
-    dphi = np.concatenate([((phi_delta_x - phi)/delta)[None],
-                           ((phi_delta_y - phi)/delta)[None]], axis=0).T
+    dphi = np.concatenate([((phi_pdelta_x - phi_mdelta_x)/(2*delta))[None],
+                           ((phi_pdelta_y - phi_mdelta_y)/(2*delta))[None]], axis=0).T
     
     # Compare with the one computed first
     print("Error between the computed matrices:")

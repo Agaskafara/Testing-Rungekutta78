@@ -1,6 +1,8 @@
 import numpy as np
 
 class include_diffs:
+    """Join function and its differential."""
+
     def __init__(self, funct, dfunct):
         self.funct = funct
         self.dfunct = dfunct

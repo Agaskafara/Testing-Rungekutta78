@@ -32,7 +32,7 @@ def main(args):
     input_vars = np.loadtxt(args.halos_input)
     # ----------------------------------------
 
-    # Prepare output folder
+    # Prepare output file
     output_folder = args.output_folder
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)

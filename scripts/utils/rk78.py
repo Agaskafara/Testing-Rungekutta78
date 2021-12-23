@@ -69,10 +69,13 @@ class rk78:
 
     def rk78(self, t0 : float, init_pos : np.ndarray, h : float,
              h_min : float, h_max : float, tol : float, funct):
+        
+        # Define useful parameters
         self._params = {'t' : t0, 'pos' : init_pos, 'step' : h,
                        'dimension' : len(init_pos), 'tol' : tol}
+        # Find 
+        h_sign = (np.sign(h) if h != 0 else 1)
 
-        h_sign = (h/abs(h) if h != 0 else 1)
         # Until conditions are not fulfilled, reintegrate
         while True:
             
@@ -105,6 +108,7 @@ class rk78:
 
     def rk78_multistep(self, t0 : float, init_pos : np.ndarray, h : float,
                        h_min : float, h_max : float, tol : float, funct, steps: int):
+        """Apply multiple times rk78."""
 
         # Pack variables in a dictionary
         self._params = {'t' : t0, 'pos' : init_pos, 'step' : h,
@@ -134,7 +138,7 @@ class rk78:
 
     def flux(self, t_pred : float, t0 : float, init_pos : np.ndarray, h : float,
             h_min : int, h_max : int, tol : float, max_steps : int, funct):
-        
+        """Apply rk78 until reaching t_pred time."""
         # If t = t0, immediat return
         if t_pred == t0:
             return {'success': False}
@@ -190,6 +194,7 @@ class rk78:
                        t0 : float, init_pos : np.ndarray,
                        h : float, h_min : int, h_max : int,
                        tol : float, max_steps : int, funct):
+        """Apply rk78 to evaluate multiple times between the given time interval."""
 
         # Correct step sign
         h0 = (t_pred_lim - t0)/abs(t_pred_lim - t0) * abs(h)

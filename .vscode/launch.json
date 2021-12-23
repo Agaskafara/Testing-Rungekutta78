@@ -5,6 +5,31 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Check time QR",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/s3_ex4.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--output_folder",
+                "${workspaceFolder}/outputs/section3/ex4/ratio_output",
+            ]
+        },
+        {
+            "name": "Check QR 2",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/s3_ex3.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Check QR",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/s3_ex2.py",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Section 2",
             "type": "python",
             "request": "launch",
