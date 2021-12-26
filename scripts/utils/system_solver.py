@@ -97,7 +97,7 @@ def solve_qr(Rst : np.ndarray, Qtb : np.ndarray, checkQR : bool = False, tol : f
 def solve_system(A : np.ndarray, b : np.ndarray, tol : float = 0.0005):
     
     # transform system into a QR system
-    success, Rst, Qtb, _ = qrres(A, b, count_time=False)
+    success, Rst, Qtb, _ = qrres(A, b, tol=tol,count_time=False)
     
     # If not possible, return no solution
     if not success:

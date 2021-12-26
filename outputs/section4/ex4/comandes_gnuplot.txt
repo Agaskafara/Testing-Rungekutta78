@@ -1,0 +1,10 @@
+set term x11 size 700,700
+set view equal xyz
+orbites_filepath = './orbites_output/orbites_test.txt'
+points_filepath = './orbites_output/points_test.txt'
+
+set ticslevel 0.1
+unset key
+splot orbites_filepath u 2:3:4 w l, \
+      points_filepath u 1:2:3 w p
+

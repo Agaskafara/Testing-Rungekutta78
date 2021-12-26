@@ -27,20 +27,16 @@ def main(args):
     # ----------------------------------------
 
     # Initial conditions and time prediction -
-    t0, t_pred = 0, 1
+    t0, t_pred = 0, 2.746177778348061
     # ----------------------------------------
 
     # Manual choice of initial position/velocities
-    rot = np.array([[np.cos(t0), -np.sin(t0), 0], [np.sin(t0), np.cos(t0), 0], [0, 0, 1]])
-    inv_rot = np.array([[np.cos(t0), np.sin(t0), 0], [-np.sin(t0), np.cos(t0), 0], [0, 0, 1]])
-    dinv_rot = np.array([[- np.sin(t0), np.cos(t0), 0], [-np.cos(t0), -np.sin(t0), 0], [0, 0, 1]])
-    orig_vel = np.array([0, 0, 0])
-    sinodic_pos = [5, 0, 0]
-    #sinodic_vel = dinv_rot.dot(rot).dot(sinodic_pos) + inv_rot.dot(orig_vel)
-    sinodic_vel = [0, 0, 0]
-    init_pos = np.array(sinodic_pos + list(sinodic_vel))
+    init_pos = np.array([-0.8457719086638686, 0.05934028672713117, 0,
+                         0.03769526738828564, 0.01515062570613701, 0.04577799834681743])
+    # Add boosts
+    init_pos[3:] += np.array([-9.35186676e+04, 5.40396394e+04, -9.18213888e-02])
 
-    num_evals = 1
+    num_evals = 1000
     # ----------------------------------------
 
     # Prepare output folder
@@ -53,15 +49,26 @@ def main(args):
              'points': os.path.join(output_folder, 'points_test.txt')}
 
     # Predict
-    output = numeric_algorithm.flux_multistep(t_pred, num_evals, t0, init_pos,
-                                              h, h_min, h_max, tol, max_steps,
-                                              partial(rtbp_funct, mu_=mu))
+    output_boost1 = numeric_algorithm.flux_multistep(t_pred/2, num_evals, t0, init_pos,
+                                                     h, h_min, h_max, tol, max_steps,
+                                                     partial(rtbp_funct, mu_=mu))
+    middle_pos = output_boost1['pos_track'][-1].copy()
+    middle_pos[3:] += np.array([-3.14638200e+04, -1.08432204e+05, 9.24594824e-02])
+
+    output_boost2 = numeric_algorithm.flux_multistep(t_pred, num_evals, t_pred/2., middle_pos,
+                                                     h, h_min, h_max, tol, max_steps,
+                                                     partial(rtbp_funct, mu_=mu))
+    
+    pos_track_boost1 = np.concatenate((output_boost1['time_track'].reshape(-1, 1),
+                                       np.array(output_boost1['pos_track'])[:, :3]), axis=1)
+    pos_track_boost2 = np.concatenate((output_boost2['time_track'].reshape(-1, 1),
+                                       np.array(output_boost2['pos_track'])[:, :3]), axis=1)
+    full_pos_track = np.concatenate([pos_track_boost1, pos_track_boost2])
 
     # Store values
     # File Orbites
     with open(paths['orbites'], "w") as file_id:
-        np.savetxt(file_id, np.concatenate((output['time_track'].reshape(-1, 1),
-                                            np.array(output['pos_track'])[:, :3]), axis=1))
+        np.savetxt(file_id, full_pos_track)
     file_id.close()
 
     # File Points
