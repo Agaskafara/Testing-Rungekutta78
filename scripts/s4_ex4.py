@@ -13,9 +13,9 @@ def args():
 def main(args):
 
     # rk78 paramaters ----------------
-    h, h_min, h_max = 0.0005, 0.0001, 0.001
+    h, h_min, h_max = 0.005, 0.001, 0.01
     max_steps = 100000
-    tol = 1e-13
+    tol = 1e-12
     # --------------------------------
     # Function parameters ------------
     mu = 0.01215058560962404

@@ -35,6 +35,10 @@ def main(args):
 
     file_path = os.path.join(output_folder, 'orbites.txt')
 
+    # If the file already exists, erase it before storing data
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
     # For each initial condition
     for initial_condition in initial_conditions:
 

@@ -39,6 +39,10 @@ def main(args):
 
     file_path = os.path.join(output_folder, 'orbites.txt')
 
+    # If the file already exists, erase it before storing data
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
     # Predict
     output = numeric_algorithm.flux_multistep(t_pred, num_evals, t0, init_pos,
                                               h, h_min, h_max, tol, max_steps,
