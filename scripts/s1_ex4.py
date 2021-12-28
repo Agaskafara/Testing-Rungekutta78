@@ -47,7 +47,7 @@ def main(args):
     print(outputB)
     if outputB['success']:
         print('Does the estimation satisify the tolerance?:',
-              abs(outputB['pos'] - np.array([np.cos(t_pred["B"]), - np.sin(t_pred["B"])]) < tol))
+              abs(outputB['pos'] - np.array([np.cos(t_pred["B"]), - np.sin(t_pred["B"])])) < tol)
 
 if __name__ == "__main__":
               

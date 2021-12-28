@@ -93,7 +93,7 @@ class Maneuvers:
             raise Exception("r78 flux not successful")
         
         # Init diffG matrix
-        diffG = np.zeros((funct_dim, funct_dim))
+        diffG = np.zeros((funct_dim, 2*boost_dim))
         
         # Store first boost diff
         diffG[:, :boost_dim] = phi_2['pos'][funct_dim:].reshape(funct_dim, funct_dim).dot( \
