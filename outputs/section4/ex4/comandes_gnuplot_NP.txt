@@ -6,5 +6,4 @@ stats orbites_filepath
 set ticslevel 0.1
 unset key
 
-splot for[b=0:STATS_blocks-1] orbites_filepath u 2:3:4 index b title ''.(b+1) w l lc b, \
-      './orbites_output/points.txt' u 1:2:3 w p
+splot for[b=0:STATS_blocks-1] orbites_filepath u 2:3:4 index b title ''.(b+1) w l lc b

@@ -11,6 +11,10 @@
             "program": "${workspaceFolder}/scripts/s4_ex4_bonus_track.py",
             "console": "integratedTerminal",
             "args": [
+                "--init_conditions",
+                "${workspaceFolder}/outputs/section4/ex4/condicions_inicials/cmani_rtbp.inp",
+                "--boosts",
+                "${workspaceFolder}/outputs/section4/ex4/boosts/boosts.txt",
                 "--output_folder",
                 "${workspaceFolder}/outputs/section4/ex4/orbites_output",
             ]
@@ -20,7 +24,13 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/scripts/s4_ex4.py",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "args": [
+                "--init_conditions",
+                "${workspaceFolder}/outputs/section4/ex4/condicions_inicials/cmani_rtbp.inp",
+                "--output_folder",
+                "${workspaceFolder}/outputs/section4/ex4/boosts",
+            ]
         },
         {
             "name": "Maneuvers 1",

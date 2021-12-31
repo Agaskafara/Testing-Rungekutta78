@@ -11,11 +11,14 @@ def main(args):
 
     # Create a list with random integers
     n_list = np.random.randint(3, 50, 10)
+    print('\nMax element error in each of 10 random systems of random dimension:\n')
 
     for n in n_list:
+
         # Init a random matrix
         A = np.random.random((n, n))
         x = np.ones(n)
+
         # Find b such that x is solution to Ax = b
         b = A.dot(x)
         

@@ -22,11 +22,9 @@ def main(args):
     h_min, h_max = 0.0001, 0.005
     tol = 0.000001
     # ----------------------------------------
-
     # Parameters -----------------------------
     mu = 0.01215058560962404
     # ----------------------------------------
-
     # Initial conditions ---------------------
     t0 = 0
     input_vars = np.loadtxt(args.halos_input)
@@ -47,6 +45,7 @@ def main(args):
 
     # For each initial condition
     for indx_par, halo_params in enumerate(input_vars):
+
         init_pos = halo_params[:6]
         h, num_evals = halo_params[6:]
 

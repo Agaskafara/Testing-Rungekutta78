@@ -1,4 +1,4 @@
-set term x11 size 700,700
+set term wxt size 700,700
 set view equal xyz
 orbites_filepath = './orbites_output/orbites.txt'
 stats orbites_filepath

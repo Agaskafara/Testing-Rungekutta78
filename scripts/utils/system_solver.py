@@ -11,7 +11,7 @@ def _sign(val: float):
     return 1. + numpy_sign*(1 - numpy_sign)
 
 # QR factorization
-def qrres(A : np.ndarray, b : np.ndarray, tol : float = 0.0005, count_time : bool = False):
+def qrres(A : np.ndarray, b : np.ndarray, tol : float = 1e-7, count_time : bool = False):
     
     # Matrix dimensions
     m, n = A.shape
@@ -62,7 +62,7 @@ def qrres(A : np.ndarray, b : np.ndarray, tol : float = 0.0005, count_time : boo
     return [success, A_k, b_k] + ([time_end - start_time] if count_time else [0])
 
 # System solver from QR factorization
-def solve_qr(Rst : np.ndarray, Qtb : np.ndarray, checkQR : bool = False, tol : float = 0.0005):
+def solve_qr(Rst : np.ndarray, Qtb : np.ndarray, checkQR : bool = False, tol : float = 1e-7):
     
     # Matrix Rst dimensions
     m, n = Rst.shape
@@ -94,7 +94,7 @@ def solve_qr(Rst : np.ndarray, Qtb : np.ndarray, checkQR : bool = False, tol : f
     return partial_sol
 
 # System solver (Global)
-def solve_system(A : np.ndarray, b : np.ndarray, tol : float = 0.0005):
+def solve_system(A : np.ndarray, b : np.ndarray, tol : float = 1e-7):
     
     # transform system into a QR system
     success, Rst, Qtb, _ = qrres(A, b, tol=tol,count_time=False)

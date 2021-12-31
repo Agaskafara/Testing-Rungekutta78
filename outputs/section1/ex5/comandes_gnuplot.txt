@@ -1,4 +1,4 @@
-set term x11 size 700,700
+set term wxt size 700,700
 set view equal xyz
 set ticslevel 0.1
 unset key
@@ -9,4 +9,3 @@ set term post eps color solid
 replot
 set term x11
 set output
-

@@ -16,10 +16,9 @@ def main(args):
     numeric_algorithm = rk78()
 
     # Hyperparameters ------------------------
-    h_min, h_max = 0.0001, 0.005
-    tol = 0.0001
+    h_min, h, h_max = 0.0001, 0.001, 0.005
+    tol = 1e-12
     max_steps = 10000
-    h = 0.001
     # ----------------------------------------
     # Initial conditions ---------------------
     t0 = 0
@@ -42,7 +41,7 @@ def main(args):
                                     h, h_min, h_max, tol, max_steps, funct)
     
     # Predict delta
-    delta = 0.00001
+    delta = 1e-5
     delta_x0 = np.array([delta, 0])
     phi_pdelta_x = numeric_algorithm.flux(t_pred, t0, init_pos[:2] + delta_x0,
                                          h, h_min, h_max, tol, max_steps,
@@ -53,12 +52,11 @@ def main(args):
                                          partial(s2_funct, alpha_=alpha))['pos']
     
     # Predict -delta
-    delta = -0.00001
-    delta_x0 = np.array([delta, 0])
+    delta_x0 = -1.*np.array([delta, 0])
     phi_mdelta_x = numeric_algorithm.flux(t_pred, t0, init_pos[:2] + delta_x0,
                                          h, h_min, h_max, tol, max_steps,
                                          partial(s2_funct, alpha_=alpha))['pos']
-    delta_y0 = np.array([0, delta])
+    delta_y0 = -1.*np.array([0, delta])
     phi_mdelta_y = numeric_algorithm.flux(t_pred, t0, init_pos[:2] + delta_y0,
                                          h, h_min, h_max, tol, max_steps,
                                          partial(s2_funct, alpha_=alpha))['pos']
@@ -68,7 +66,7 @@ def main(args):
                            ((phi_pdelta_y - phi_mdelta_y)/(2*delta))[None]], axis=0).T
     
     # Compare with the one computed first
-    print("Error between the computed matrices:")
+    print("Difference between the computed matrices:")
     print(dphi - output['pos'][2:].reshape(2, 2))
 
 if __name__ == "__main__":

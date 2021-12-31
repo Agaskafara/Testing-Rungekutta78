@@ -70,22 +70,24 @@ class Maneuvers:
         boost_dim = boosts.shape[1]
 
         # Prepare init_pos
-        init_pos = np.zeros(funct_dim*(funct_dim + 1))
-        init_pos[:funct_dim] = start_pos.copy()
-        init_pos[boost_dim:funct_dim] += boosts[0]
-        init_pos[funct_dim:] = np.identity(funct_dim).reshape(funct_dim*funct_dim)
+        init_pos1 = np.zeros(funct_dim*(funct_dim + 1))
+        init_pos1[:funct_dim] = start_pos.copy()
+        init_pos1[boost_dim:funct_dim] += boosts[0]
+        init_pos1[funct_dim:] = np.identity(funct_dim).reshape(funct_dim*funct_dim)
 
         # Compute solution at time step_time/2
-        phi_1 = numeric_integrator.flux(step_time/2., 0, init_pos,
+        phi_1 = numeric_integrator.flux(step_time/2., 0, init_pos1,
                                         self.h, self.h_min, self.h_max,
                                         self.tol, self.max_steps, camp)
         if not phi_1['success']:
             raise Exception("r78 flux not successful")
 
         # Prepare second boost and compute solution
-        pos_boost = np.zeros_like(phi_1['pos'])
-        pos_boost[boost_dim:funct_dim] += boosts[1]
-        phi_2 = numeric_integrator.flux(step_time, step_time/2., phi_1['pos'] + pos_boost,
+        init_pos2 = np.zeros_like(phi_1['pos'])
+        init_pos2[:funct_dim] = phi_1['pos'][:funct_dim].copy()
+        init_pos2[boost_dim:funct_dim] += boosts[1]
+        init_pos2[funct_dim:] = np.identity(funct_dim).reshape(funct_dim*funct_dim)
+        phi_2 = numeric_integrator.flux(step_time, step_time/2., init_pos2,
                                         self.h, self.h_min, self.h_max,
                                         self.tol, self.max_steps, camp)
         
@@ -98,6 +100,7 @@ class Maneuvers:
         # Store first boost diff
         diffG[:, :boost_dim] = phi_2['pos'][funct_dim:].reshape(funct_dim, funct_dim).dot( \
             phi_1['pos'][funct_dim:].reshape(funct_dim, funct_dim)[:, boost_dim:])
+
         # Store second boost diff
         diffG[:, boost_dim:] = phi_2['pos'][funct_dim:].reshape(funct_dim, funct_dim)[:, boost_dim:]
         
@@ -106,12 +109,14 @@ class Maneuvers:
 
     def cmani(self, step_time : float, start_pos : np.ndarray,
               end_pos : np.ndarray, init_boosts: np.ndarray, funct, dfunct, max_it : int):
+
         # Init working variable
         work_boosts = init_boosts.copy().astype(float)
         boosts_shape = work_boosts.shape
 
         # Apply Newton's method max_it times
-        for _ in range(max_it) :
+        for _ in range(max_it):
+
             # Compute G and DG
             output = self.cmani_gdg(step_time, start_pos, end_pos, work_boosts, funct, dfunct)
 
@@ -120,6 +125,9 @@ class Maneuvers:
             
             if output['G'].dot(output['G']) < self.tol:
                 break
-        
+
+        # Check work_boosts is a zero
+        print("Success:", output['G'].dot(output['G']) < self.tol)
+
         # Return the expected root for G
         return work_boosts

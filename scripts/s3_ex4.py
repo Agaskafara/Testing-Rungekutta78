@@ -23,12 +23,14 @@ def main(args):
         os.remove(file_path)
 
     # Create an increasing list of integers
-    n_list = np.arange(40, 700)
+    n_list = np.arange(40, 200)
 
     for n in n_list:
+
         # Init a random matrix
         A = np.random.random((n, n))
         x = np.ones(n)
+
         # Find b such that x is solution to Ax = b
         b = A.dot(x)
         

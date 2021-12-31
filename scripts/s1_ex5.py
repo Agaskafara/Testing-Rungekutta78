@@ -17,9 +17,9 @@ def main(args):
     numeric_algorithm = rk78()
 
     # Hyperparameters ------------------------
-    h, h_min, h_max = 0.01, 0.01, 0.05
+    h, h_min, h_max = 0.05, 0.01, 0.1
     max_steps = 1000
-    tol = 0.0001
+    tol = 1e-15
     # ----------------------------------------
     # Initial conditions and time prediction -
     t0, t_pred = 0, 100

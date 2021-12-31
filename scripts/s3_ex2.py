@@ -19,7 +19,8 @@ def main(args):
 
     # Show results
     print("Check solution:")
-    print(x, sol)
+    print('Real solution :', x)
+    print('Found solution:', sol)
 
 if __name__ == "__main__":
               
